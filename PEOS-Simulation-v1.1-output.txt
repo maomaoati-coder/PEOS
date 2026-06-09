@@ -1,0 +1,89 @@
+==============================================================
+PEOS SIMULATION VERIFICATION v1.1
+Mao Guanghui (毛广辉) | 2026-06-08
+PEOS DOI : 10.5281/zenodo.20603667
+PLC  DOI : 10.5281/zenodo.19801651
+PSM  DOI : 10.5281/zenodo.20603456
+==============================================================
+
+── P-I: PHOTONIC PROCESS (PP) ──────────────────────
+  [PASS] PP1 RUNNING state  (g=0.05 > α=0.02, sustained all t)
+         computed = 0.580917   criterion = > 0.1  [I_threshold]
+  [PASS] PP2 TERMINATED state  (α=0.60 >> g=0.00, natural decay)
+         computed = 0.024894   criterion = <= 0.1  [I_threshold at t_end]
+         coherence loss → termination at t_norm = 2.683  (no kill signal, no OS intervention)
+  [PASS] PP3 Child spawn  (split=40%, viable intensity, distinct phase ID)
+         computed = 0.200000   criterion = > 0.1  [I_threshold] & Δφ ≠ 0
+         φ_parent = 1.0472 rad   φ_child = 1.5708 rad   Δφ = 0.5236 rad
+
+── P-II: PHASE ADDRESS SPACE (PAS) ─────────────────
+         N_addr = floor(2π / 0.05) = 125 unique addresses
+  [PASS] PAS1 READ @ correct address  (θ_probe = θ_write → constructive)
+         computed = 1.000000   criterion = > 0.90
+  [PASS] PAS2 READ @ wrong address  (|Δθ| = 6×δφ_min → destructive)
+         computed = 1.5230e-08   criterion = < 0.10
+  [PASS] PAS3 Phase-key access control  (legal > 0.50, illegal < 1e-10)
+         computed = 1.9287e-22   criterion = < 1e-10  [illegal → destructive interference]
+         I_legal = 0.923116  (offset=0.02=0.4σ)   I_illegal = 1.9287e-22  (offset=0.50=10σ)
+
+── P-III: ENERGY ROUTING SCHEDULING (ERS) ──────────
+  [PASS] ERS1 Highest intensity → maximum resource allocation
+         computed = 0.444444   criterion = = max  [0.4444, 0.2778, 0.1667, 0.1111]
+         allocations: [0.4444, 0.2778, 0.1667, 0.1111]
+  [PASS] ERS2 Preemption  (I_P0 / I_P3 > k_preempt = 2.0)
+         computed = 4.000000   criterion = > 2.0  [k_preempt threshold]
+  [PASS] ERS3 Fairness  (equal I_init → equal allocation = 0.25 each)
+         computed = 0.0000e+00   criterion = std = 0.0  [all equal]
+
+── P-IV: INTERFERENCE INTERRUPT (II) ───────────────
+  [PASS] II1 Constructive  (Δφ = 0) → INTERRUPT TRIGGERED
+         computed = 4.000000   criterion = > 3.0  [I_trigger]
+  [PASS] II2 Destructive   (Δφ = π) → NO INTERRUPT
+         computed = 0.0000e+00   criterion = < 3.0  [I_trigger]
+  [PASS] II3 Phase masking (Δφ = π/2) → INTERRUPT SUPPRESSED
+         computed = 2.000000   criterion = < 3.0  [I_trigger]
+         I_construct = 4.000   I_destruct = 0.000   I_masked = 2.000   I_trig = 3.0
+
+── P-V: EMERGENT CONCURRENCY (EC) ───────────────────
+  [PASS] EC1 All 8 WDM channels simultaneously active
+         computed = 1.000000   criterion = amplitude = 1.0  [each channel]
+         8 channels, Δf = 1 [norm.], harmonic DFT-orthogonal basis
+  [PASS] EC2 Wavelength isolation  (off-diagonal cross-correlation < 1e-10)
+         computed = 1.2123e-16   criterion = < 1e-10  [exact DFT orthogonality]
+  [PASS] EC3 FWM inter-thread: f_FWM = f1+f2-f3 detected  (SNR > 5)
+         computed = 40.820746  [SNR]   criterion = > 5.0  [peak / rms_other]
+         f1=5 f2=6 f3=7 [norm.] → f_FWM = 4 [norm.]   SNR = 40.8
+
+==============================================================
+VERIFICATION SUMMARY
+==============================================================
+  P-I   Photonic Process                ███  3/3
+  P-II  Phase Address Space             ███  3/3
+  P-III Energy Routing Sched.           ███  3/3
+  P-IV  Interference Interrupt          ███  3/3
+  P-V   Emergent Concurrency            ███  3/3
+
+  Total  : 15 / 15 PASS
+  Result : ALL PASS ✓
+
+==============================================================
+ACADEMIC HONESTY STATEMENT
+==============================================================
+
+  All results are mathematical simulations of the PEOS
+  conceptual model. They verify internal consistency of the
+  five architectural primitives as defined in PEOS-CLAIMS-v1.0
+  and DOI 10.5281/zenodo.20603667.
+
+  No physical hardware implementation or hardware-level
+  measurement of any kind is claimed.
+
+  Simulation ≠ Hardware Verification.
+
+  Author : Mao Guanghui (毛广辉)   maomaoati@gmail.com
+  PEOS   : DOI 10.5281/zenodo.20603667
+  PLC    : DOI 10.5281/zenodo.19801651
+  PSM    : DOI 10.5281/zenodo.20603456
+==============================================================
+END — PEOS SIMULATION VERIFICATION v1.1
+==============================================================
