@@ -145,7 +145,7 @@ Full hash chain record: [HASH_CHAIN.md](./HASH_CHAIN.md)
 |-----------|-----------------|--------------|
 | Logic / 逻辑 | PLC — Photonic Logic Chip / 光影芯片 | [10.5281/zenodo.19801651](https://doi.org/10.5281/zenodo.19801651) |
 | Memory / 存储 | PSM — Photonic State Memory / 光子态存储器 | [10.5281/zenodo.20603456](https://doi.org/10.5281/zenodo.20603456) |
-| Network / 网络 | BitStar — Geographic Photonic Routing | GitHub prior art |
+| Network / 网络 | BitStar — Geographic Photonic Routing | [10.5281/zenodo.20724079](https://doi.org/10.5281/zenodo.20724079) |
 | **System / 系统** | **PEOS — Photonic Emergence OS** | [**10.5281/zenodo.20603667**](https://doi.org/10.5281/zenodo.20603667) |
 
 ---
